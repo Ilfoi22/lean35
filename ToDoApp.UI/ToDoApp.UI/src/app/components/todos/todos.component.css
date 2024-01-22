@@ -1,0 +1,40 @@
+* {
+    font-family: monospace;
+}
+
+.stroke {
+    text-decoration: line-through;
+}
+
+.delete-icon {
+    background-color: #e63131;
+    padding: 5px;
+    border-radius: 5px;
+    color: #fff;
+    transition: color 0.3s ease-out;
+}
+
+.delete-icon:hover {
+    background-color: #a71e1e;
+}
+
+.update-icon {
+    background-color: #1ccc48;
+    padding: 5px;
+    border-radius: 5px;
+    color: #fff;
+    transition: color 0.3s ease-out;
+}
+
+.update-icon:hover {
+    background-color: #0b912c;
+}
+
+.container {
+    text-align: center;
+}
+
+.row table {
+    margin: 30px auto;
+}
+
