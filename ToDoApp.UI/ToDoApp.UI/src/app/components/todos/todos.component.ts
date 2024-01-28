@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Todo } from 'src/app/models/todo.model';
+import { AuthService } from 'src/app/services/auth.service';
 import { TodoService } from 'src/app/services/todo.service';
 
 @Component({
@@ -13,19 +14,27 @@ export class TodosComponent implements OnInit {
   pageSize = 10;
   isPreviousDisabled = true;
   isNextDisabled = false;
+  totalItems = 0;
+  totalPages: number = 0;
 
-  constructor(private todoService: TodoService) { }
+  constructor(private todoService: TodoService, private auth: AuthService) { }
 
   ngOnInit(): void {
+    this.totalPages = Math.ceil(this.totalItems / this.pageSize);
     this.getAllTodos();
   }
 
   getAllTodos() {
     this.todoService.getAllTodos(this.currentPage, this.pageSize)
       .subscribe({
-        next: (todos) => {
-          this.todos = todos;
+        next: (response) => {
+          this.todos = response.items.filter(todo => !todo.isCompleted && !todo.isDeleted);
+          this.totalItems = response.totalCount;
+          this.totalPages = Math.ceil(this.totalItems / this.pageSize);
           this.updatePaginationButtons();
+        },
+        error: (err) => {
+          console.error('Error fetching todos:', err);
         }
       });
   }
@@ -59,13 +68,37 @@ export class TodosComponent implements OnInit {
       });
   }
 
+  completeTodo(id: string, todo: Todo) {
+    const updatedTodo = { ...todo, isCompleted: true };
+    this.todoService.updateTodo(id, updatedTodo).subscribe({
+      next: (response) => {
+        this.todos = this.todos.filter(t => t.id !== id);
+        this.updatePaginationButtons();
+      },
+      error: (err) => {
+        console.error('Error completing todo:', err);
+      }
+    });
+  }
+
   deleteTodo(id: string) {
-    this.todoService.deleteTodo(id)
-      .subscribe({
-        next: (response) => {
-          this.getAllTodos();
-        }
-      });
+    const todo = this.todos.find(t => t.id === id);
+    if (todo) {
+      const updatedTodo = { ...todo, isDeleted: true };
+
+      this.todoService.updateTodo(id, updatedTodo)
+        .subscribe({
+          next: (response) => {
+            this.todos = this.todos.filter(t => t.id !== id);
+            this.updatePaginationButtons();
+          },
+          error: (err) => {
+            console.error('Error updating todo:', err);
+          }
+        });
+    } else {
+      console.error('Todo item not found');
+    }
   }
 
   private updatePaginationButtons() {

@@ -17,8 +17,13 @@ export class UpdateTodoComponent implements OnInit {
     category: '',
     createdDate: new Date(),
     isCompleted: false,
-    completedDate: new Date()
+    completedDate: new Date(),
+    isDeleted: false,
+    deletedDate: new Date(),
+    userId: ''
   }
+
+  categories: string[] = ['Work', 'Personal', 'Shopping', 'Others']; 
 
   constructor(
     private todoService: TodoService,

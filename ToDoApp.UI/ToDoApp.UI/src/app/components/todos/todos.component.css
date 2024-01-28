@@ -2,8 +2,37 @@
     font-family: monospace;
 }
 
+.input-group .form-control {
+    max-width: 30%;
+}
+
+.input-group .form-control,
+.input-group .input-group-append {
+    margin: 0;
+    margin-left: 33%;
+}
+
 .stroke {
     text-decoration: line-through;
+}
+
+.complete-icon,
+.update-icon,
+.delete-icon {
+    padding: 5px;
+    margin: 0 -15px;
+}
+
+.complete-icon {
+    background-color: #2e42f8;
+    padding: 5px;
+    border-radius: 5px;
+    color: #fff;
+    transition: color 0.3s ease-out;
+}
+
+.complete-icon:hover {
+    background-color: #1d27bb;
 }
 
 .delete-icon {

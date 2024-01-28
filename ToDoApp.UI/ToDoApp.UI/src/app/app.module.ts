@@ -9,13 +9,21 @@ import { UpdateTodoComponent } from './components/update-todo/update-todo.compon
 import { CreateTodoComponent } from './components/create-todo/create-todo.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
+import { LoginComponent } from './components/login/login.component';
+import { SignupComponent } from './components/signup/signup.component';
+import { DeletedTodosComponent } from './components/deleted-todos/deleted-todos.component';
+import { CompletedTodosComponent } from './components/completed-todos/completed-todos.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     TodosComponent,
     UpdateTodoComponent,
-    CreateTodoComponent
+    CreateTodoComponent,
+    LoginComponent,
+    SignupComponent,
+    DeletedTodosComponent,
+    CompletedTodosComponent
   ],
   imports: [
     BrowserModule,

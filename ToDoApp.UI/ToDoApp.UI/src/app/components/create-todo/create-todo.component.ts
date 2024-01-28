@@ -16,8 +16,13 @@ export class CreateTodoComponent implements OnInit {
     category: '',
     createdDate: new Date(),
     isCompleted: false,
-    completedDate: new Date()
+    completedDate: new Date(),
+    isDeleted: false,
+    deletedDate: new Date(),
+    userId: ''
   }
+
+  categories: string[] = ['Work', 'Personal', 'Shopping', 'Others']; 
 
   constructor(private todoService: TodoService, private toastr: ToastrService) { }
 
@@ -26,13 +31,23 @@ export class CreateTodoComponent implements OnInit {
   }
 
   addTodo() {
+    const userId = localStorage.getItem('userId');
+
+    if (userId === null) {
+      console.error('User ID is null. User must be logged in to add a todo.');
+      return;
+    }
+
+    this.newTodo.userId = userId;
     this.todoService.addTodo(this.newTodo)
       .subscribe({
         next: (todo) => {
+          console.log('Todo added:', todo);
           this.toastr.success('Task created successfully!', 'Success');
           this.resetForm();
         },
         error: (error) => {
+          console.error('Error adding todo:', error);
           this.toastr.error('An error occurred while creating the task.', 'Error');
         }
       });
@@ -46,7 +61,10 @@ export class CreateTodoComponent implements OnInit {
       category: '',
       createdDate: new Date(),
       isCompleted: false,
-      completedDate: new Date()
+      completedDate: new Date(),
+      isDeleted: false,
+      deletedDate: new Date(),
+      userId: ''
     };
   }
 

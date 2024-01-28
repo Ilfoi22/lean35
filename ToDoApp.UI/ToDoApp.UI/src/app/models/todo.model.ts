@@ -5,5 +5,8 @@ export interface Todo {
     category: string,
     createdDate: Date,
     isCompleted: boolean,
-    completedDate: Date
+    completedDate: Date,
+    isDeleted: boolean,
+    deletedDate: Date,
+    userId: string
 };

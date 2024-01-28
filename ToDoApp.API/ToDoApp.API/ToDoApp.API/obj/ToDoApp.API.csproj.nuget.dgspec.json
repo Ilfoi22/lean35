@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\To-Do\\ToDoApp.API\\ToDoApp.API\\ToDoApp.API\\ToDoApp.API.csproj": {}
+    "D:\\lean35\\ToDoApp.API\\ToDoApp.API\\ToDoApp.API\\ToDoApp.API.csproj": {}
   },
   "projects": {
-    "D:\\To-Do\\ToDoApp.API\\ToDoApp.API\\ToDoApp.API\\ToDoApp.API.csproj": {
+    "D:\\lean35\\ToDoApp.API\\ToDoApp.API\\ToDoApp.API\\ToDoApp.API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\To-Do\\ToDoApp.API\\ToDoApp.API\\ToDoApp.API\\ToDoApp.API.csproj",
+        "projectUniqueName": "D:\\lean35\\ToDoApp.API\\ToDoApp.API\\ToDoApp.API\\ToDoApp.API.csproj",
         "projectName": "ToDoApp.API",
-        "projectPath": "D:\\To-Do\\ToDoApp.API\\ToDoApp.API\\ToDoApp.API\\ToDoApp.API.csproj",
+        "projectPath": "D:\\lean35\\ToDoApp.API\\ToDoApp.API\\ToDoApp.API\\ToDoApp.API.csproj",
         "packagesPath": "C:\\Users\\andri\\.nuget\\packages\\",
-        "outputPath": "D:\\To-Do\\ToDoApp.API\\ToDoApp.API\\ToDoApp.API\\obj\\",
+        "outputPath": "D:\\lean35\\ToDoApp.API\\ToDoApp.API\\ToDoApp.API\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -44,9 +44,17 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "dependencies": {
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[7.0.15, )"
+            },
             "Microsoft.AspNetCore.OpenApi": {
               "target": "Package",
               "version": "[7.0.14, )"
+            },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[7.0.15, )"
             },
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
@@ -61,6 +69,10 @@
             "Microsoft.VisualStudio.Azure.Containers.Tools.Targets": {
               "target": "Package",
               "version": "[1.19.5, )"
+            },
+            "NSwag.Annotations": {
+              "target": "Package",
+              "version": "[14.0.2, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",

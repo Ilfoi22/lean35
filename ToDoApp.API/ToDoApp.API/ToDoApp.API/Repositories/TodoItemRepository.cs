@@ -6,6 +6,11 @@ using ToDoApp.API.Repositories.Interfaces;
 
 namespace ToDoApp.API.Repositories;
 
+/// <summary>
+/// Represents the repository for managing Todo items within the application.
+/// Provides methods for CRUD operations on Todo items, including adding, deleting,
+/// updating, and retrieving Todo items, both in a paginated fashion and by specific criteria.
+/// </summary>
 public class TodoItemRepository : ITodoItemRepository
 {
     private readonly ApplicationDbContext _context;
@@ -17,11 +22,44 @@ public class TodoItemRepository : ITodoItemRepository
         _logger = logger;
     }
 
-    public async Task<IEnumerable<TodoItem?>> GetTodoItemsAsync(int page, int pageSize)
+    public async Task<IEnumerable<TodoItem?>> GetTodoItemsAsync(Guid userId, int page, int pageSize)
     {
-        _logger.LogInformation($"------------\nMessage from {nameof(TodoItemRepository)}:\nSuccessfully get list of items (Page: {page}, PageSize: {pageSize})\n------------");
+        _logger.LogInformation($"\n------------\nMessage from {nameof(TodoItemRepository)}:\nSuccessfully get list of items for User with ID: {userId}\n Page: {page}, PageSize: {pageSize})\n------------");
 
         return await _context.TodoItems
+            .Where(item => item.UserId == userId)
+            .OrderByDescending(item => item.CreatedDate)
+            .Skip((page - 1) * pageSize)
+            .Take(pageSize)
+            .ToListAsync();
+    }
+
+    public async Task<int> GetTotalTodoItemCountAsync(Guid userId)
+    {
+        _logger.LogInformation($"\n------------\nMessage from {nameof(TodoItemRepository)}:\nSuccessfully count items for User with ID: {userId}\n------------");
+
+        return await _context.TodoItems
+            .Where(item => item.UserId == userId)
+            .CountAsync();
+    }
+
+    public async Task<IEnumerable<TodoItem?>> GetCompletedTodoItemsAsync(Guid userId, int page, int pageSize)
+    {
+        return await _context.TodoItems
+            .Where(item => item.UserId == userId && item.IsCompleted == true)
+            .OrderByDescending(item => item.CompletedDate)
+            .Skip((page - 1) * pageSize)
+            .Take(pageSize)
+            .ToListAsync();
+    }
+
+    public async Task<IEnumerable<TodoItem?>> GetDeletedTodoItemsAsync(Guid userId, int page, int pageSize)
+    {
+        _logger.LogInformation($"\n------------\nMessage from {nameof(TodoItemRepository)}:\nSuccessfully get list of deleted items for User with ID: {userId}\n Page: {page}, PageSize: {pageSize})\n------------");
+
+        return await _context.TodoItems
+            .Where(item => item.UserId == userId && item.IsDeleted == true)
+            .OrderByDescending(item => item.DeletedDate)
             .Skip((page - 1) * pageSize)
             .Take(pageSize)
             .ToListAsync();
@@ -36,12 +74,12 @@ public class TodoItemRepository : ITodoItemRepository
             .FirstOrDefaultAsync();
     }
 
-    public async Task<IEnumerable<TodoItem?>> SearchTodoItemsByCategory(string category)
+    public async Task<IEnumerable<TodoItem?>> SearchTodoItemsByCategory(Guid userId, string category)
     {
-        _logger.LogInformation($"------------\nMessage from {nameof(TodoItemRepository)}:\nSearching for items by category: {category}\n------------");
+        _logger.LogInformation($"------------\nMessage from {nameof(TodoItemRepository)}:\nSearching for items by category: {category} for User ID: {userId}\n------------");
 
         return await _context.TodoItems
-            .Where(item => item.Category == category)
+            .Where(item => item.UserId == userId && item.Category == category)
             .ToListAsync();
     }
 
@@ -82,14 +120,22 @@ public class TodoItemRepository : ITodoItemRepository
 
         if (item is null)
         {
-            return new TodoItem { };
+            return null;
         }
 
         item.Title = todo.Title;
         item.Description = todo.Description;
         item.Category = todo.Category;
         item.IsCompleted = todo.IsCompleted;
-        item.CompletedDate = DateTime.Now;
+        if (todo.IsCompleted)
+        {
+            item.CompletedDate = DateTime.UtcNow;
+        }
+        item.IsDeleted = todo.IsDeleted;
+        if (todo.IsDeleted)
+        {
+            item.DeletedDate = DateTime.UtcNow;
+        }
 
         await _context.SaveChangesAsync();
 
