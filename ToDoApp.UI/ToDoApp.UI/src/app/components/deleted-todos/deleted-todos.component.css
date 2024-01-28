@@ -1,0 +1,23 @@
+* {
+    font-family: monospace;
+}
+
+.container {
+    text-align: center;
+}
+
+.row table {
+    margin: 30px auto;
+}
+
+.undo-icon {
+    background-color: #2e42f8;
+    padding: 5px;
+    border-radius: 5px;
+    color: #fff;
+    transition: color 0.3s ease-out;
+}
+
+.undo-icon:hover {
+    background-color: #1d27bb;
+}

@@ -1,0 +1,23 @@
+<div class="container">
+    <div class="form row mt-5">
+        <form #form="ngForm" (ngSubmit)="addTodo()">
+            <h2>Create Task</h2>
+            <div class="mb-3">
+                <label for="title" class="form-label">Title</label>
+                <input type="text" class="form-control" id="title" name="title" [(ngModel)]="newTodo.title">
+            </div>
+            <div class="mb-3">
+                <label for="description" class="form-label">Description</label>
+                <input type="text" class="form-control" id="description" name="description"
+                    [(ngModel)]="newTodo.description">
+            </div>
+            <div class="mb-3">
+                <label for="category" class="form-label">Category</label>
+                <select class="form-control" id="category" name="category" [(ngModel)]="newTodo.category">
+                    <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+</div>

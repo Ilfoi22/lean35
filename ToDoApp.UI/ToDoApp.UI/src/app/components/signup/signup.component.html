@@ -1,0 +1,39 @@
+<div class="container">
+    <div class="form row mt-5">
+        <form #form="ngForm" (ngSubmit)="onRegister()">
+            <h2>Register</h2>
+            <div class="mb-3">
+                <label for="firstName" class="form-label">First Name</label>
+                <input type="text" class="form-control small-input" id="firstName" name="firstName"
+                    [(ngModel)]="signUpData.firstName">
+            </div>
+            <div class="mb-3">
+                <label for="secondName" class="form-label">Second Name</label>
+                <input type="text" class="form-control small-input" id="secondName" name="secondName"
+                    [(ngModel)]="signUpData.secondName">
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control small-input" id="email" name="email"
+                    [(ngModel)]="signUpData.email">
+            </div>
+            <div class="mb-3">
+                <label for="username" class="form-label">Username</label>
+                <input type="text" class="form-control small-input" id="username" name="username"
+                    [(ngModel)]="signUpData.username">
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" class="form-control small-input" id="password" name="password"
+                    [(ngModel)]="signUpData.password">
+            </div>
+            <button type="submit" class="btn btn-primary">Register</button>
+            <div class="text-center pt-4 text-muted">
+                Already have an account?
+                <a [routerLink]="'/login'">
+                    Login
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
