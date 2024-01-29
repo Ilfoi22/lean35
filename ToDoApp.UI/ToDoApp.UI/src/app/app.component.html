@@ -1,0 +1,35 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container">
+    <a class="navbar-brand" href="#">To-Do App</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['todos']">My Todos</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['completed-todos']">Completed Todos</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['deleted-todos']">Deleted Todos</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['create-todos']">Create Todo</a>
+        </li>
+      </ul>
+      <ul class="navbar-nav" style="margin-left: auto;">
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="isUserLoggedIn ? [''] : ['login']"
+            (click)="isUserLoggedIn ? logout() : null">
+            {{ isUserLoggedIn ? 'Logout' : 'Login' }}
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<router-outlet></router-outlet>

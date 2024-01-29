@@ -1,0 +1,12 @@
+* {
+    font-family: monospace;
+}
+
+.container {
+    text-align: center;
+}
+
+.row table {
+    margin: 30px auto;
+}
+
